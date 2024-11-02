@@ -1,7 +1,7 @@
 # age-calculator
 You would know how long you have been alive.
 
-This project is to put into practice what has been learned in Talento Tech, Universidad de Bolivar, Cartagena - Colombia - MinTic.
+### This project is to put into practice what has been learned in Talento Tech, Universidad de Bolivar, Cartagena - Colombia - MinTic.
 
 ### The challenge
 
