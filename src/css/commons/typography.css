@@ -1,6 +1,10 @@
 :root {
+    --size-12: 0.75em;
+    --size-20: 1.25em;
     --size-48: 3em;
 
     /* weight */
     --weight-600: 600;
+    --weight-700: 700;
+    --weight-800: 800;
 }
