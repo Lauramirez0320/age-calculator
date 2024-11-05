@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- displays site properly based on user's device -->
   <link rel="stylesheet" href="src/css/style.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <script src="src/js/index.js"></script>
@@ -18,22 +17,27 @@
         Ingresa la fecha de tu nacimiento para calcular tu tiempo de vida
       </h2>
     </div>
-    <div class="content-box">
+    <div class="content-box" id="content-box">
       <div class="date-container">
-        <div class="input-container ">
+        <div class="input-container">
           <label for="day">DÍA</label>
-          <input type="number" id="day" name="day" oninput="getBirthDate(this)" placeholder="DD" required>
-        </div>
+          <input type="number" class="input" id="day" name="day" oninput="getBirthDate(this)" placeholder="DD"
+            minlength="1" maxlength="2">
+       </div>
         <div class="input-container">
           <label for="month">MES</label>
-          <input type="number" id="month" name="month" oninput="getBirthDate(this)" placeholder="MM" required>
+          <input type="number" class="input" id="month" name="month" oninput="getBirthDate(this)" placeholder="MM"
+            required>
+          <!-- <span class="error-validation" id="error-validation">Campo inválido</span> -->
         </div>
         <div class="input-container">
           <label for="year">AÑO</label>
-          <input type="number" class="border" id="year" name="year" oninput="getBirthDate(this) " placeholder="AAAA"
+          <input type="number" class="input" id="year" name="year" oninput="getBirthDate(this) " placeholder="AAAA"
             required>
         </div>
       </div>
+      <ul id="error-validation" class="error-validation">
+      </ul>
       <div class="button-container">
         <button class"animation" type="submit" onclick=calculateAge()>
           <img src="./assets/images/icon-arrow.svg" alt="Submit button">
