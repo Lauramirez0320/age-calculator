@@ -4,17 +4,81 @@ let birthdayYear;
 
 function getBirthDate(element) {
   switch (element.id) {
-    case 'day':
+    case "day":
       birthdayDay = element.value;
       break;
-    case 'month':
+    case "month":
       birthdayMonth = element.value;
       break;
-    case 'year':
+    case "year":
       birthdayYear = element.value;
       break;
     default:
       break;
+  }
+}
+let isInputEmpty =
+  birthdayDay === "" || birthdayMonth === "" || birthdayYear === "";
+
+
+function validatedData() {
+  let invalidDay = isNaN(birthdayDay) || birthdayDay < 1 || birthdayDay > 31;
+let invalidMonth =
+  isNaN(birthdayMonth) || birthdayMonth < 1 || birthdayMonth > 12;
+
+let invalidYear =
+  isNaN(birthdayYear) || birthdayYear < 1900 || birthdayYear > 3000;
+
+let isInputValid = !invalidDay && !invalidMonth && !invalidYear;
+
+  const errorUl = document.getElementById("error-validation").classList;
+
+  const dayInput = document.getElementById("day").classList;
+  const monthInput = document.getElementById("month").classList;
+  const yearInput = document.getElementById("year").classList;
+
+  if (invalidDay) {
+    const li = document.createElement("li");
+    errorUl.add("show-error");
+    dayInput.add("show-error");
+    const errorDayMessage = document.createTextNode(
+      "Ingresa un día entre 1 y 31."
+    );
+    li.appendChild(errorDayMessage);
+    document.getElementById("error-validation").appendChild(li);
+  } else {
+    errorUl.remove("show-error");
+    dayInput.remove("show-error");
+  }
+
+  if (invalidMonth) {
+    const li = document.createElement("li");
+    errorUl.add("show-error");
+    monthInput.add("show-error");
+    const errorMonthMessage = document.createTextNode(
+      "Ingresa un mes entre 1 y 12."
+    );
+    li.appendChild(errorMonthMessage);
+    document.getElementById("error-validation").appendChild(li);
+  } else {
+    errorUl.remove("show-error");
+    dayInput.remove("show-error");
+  }
+
+  if (invalidYear) {
+    const li = document.createElement("li");
+    errorUl.add("show-error");
+    yearInput.add("show-error");
+    const errorYearMessage = document.createTextNode("Ingresa un año válido");
+    li.appendChild(errorYearMessage);
+    document.getElementById("error-validation").appendChild(li);
+  } else {
+    errorUl.remove("show-error");
+    dayInput.remove("show-error");
+  }
+
+  if (isInputValid) {
+    showResultData(birthdayDay, birthdayMonth, birthdayYear);
   }
 }
 
@@ -27,77 +91,29 @@ function getDate() {
   return { currentDay, currentMonth, currentYear };
 }
 
-function sum() {
-  const { currentDay, currentMonth, currentYear } = getDate();
-
-  if (currentDay > birthdayDay) {
-    return currentDay + birthdayDay
-  }
-}
 function getLeapYear(year) {
-  const isLeap = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+  const isLeap = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
   return isLeap;
 }
 
-function showResultData (birthdayDay, birthdayMonth, birthdayYear) {
-const daySpan = document.getElementById('show-day').children[0];
-const monthSpan = document.getElementById('show-month').children[0];
-const yearSpan = document.getElementById('show-year').children[0];
+function showResultData(birthdayDay, birthdayMonth, birthdayYear) {
+  const daySpan = document.getElementById("show-day").children[0];
+  const monthSpan = document.getElementById("show-month").children[0];
+  const yearSpan = document.getElementById("show-year").children[0];
 
-const newDayNode = document.createTextNode(birthdayDay);
-const newMonthNode = document.createTextNode(birthdayMonth);
-const newYearNode = document.createTextNode(birthdayYear);
+  const newDayNode = document.createTextNode(birthdayDay);
+  const newMonthNode = document.createTextNode(birthdayMonth);
+  const newYearNode = document.createTextNode(birthdayYear);
 
-daySpan.replaceChild(newDayNode, daySpan.firstChild);
-monthSpan.replaceChild(newMonthNode, monthSpan.firstChild);
-yearSpan.replaceChild(newYearNode, yearSpan.firstChild)
+  daySpan.replaceChild(newDayNode, daySpan.firstChild);
+  monthSpan.replaceChild(newMonthNode, monthSpan.firstChild);
+  yearSpan.replaceChild(newYearNode, yearSpan.firstChild);
 }
 
 function calculateAge() {
   const { currentDay, currentMonth, currentYear } = getDate();
-  console.log(birthdayDay, birthdayMonth, birthdayYear);
-  showResultData(birthdayDay, birthdayMonth, birthdayYear)
 
+  if (!isInputEmpty) {
+    validatedData();
+  }
 }
-// función es_bisiesto(año):
-//     si (año % 4 == 0 y año % 100 != 0) o (año % 400 == 0):
-//         retornar verdadero
-//     retornar falso
-
-// función calcular_edad(fecha_nacimiento, fecha_actual):
-//     (año_nacimiento, mes_nacimiento, día_nacimiento) = fecha_nacimiento
-//     (año_actual, mes_actual, día_actual) = fecha_actual
- 
-//     años = año_actual - año_nacimiento
-//     meses = mes_actual - mes_nacimiento
-//     días = día_actual - día_nacimiento
-
-//     # Ajustar días y meses
-//     si días < 0:
-//         meses -= 1
-//         # Obtener el número de días en el mes anterior
-//         si mes_actual == 1:
-//             días_del_mes_anterior = 31  # Diciembre
-//         sino:
-//             días_del_mes_anterior = 31  # Por defecto
-//             si mes_actual == 3:
-//                 días_del_mes_anterior = 28
-//                 si es_bisiesto(año_actual):
-//                     días_del_mes_anterior = 29
-//             sino si mes_actual en [5, 7, 10, 12]:
-//                 días_del_mes_anterior = 30
-
-//         días += días_del_mes_anterior
-
-//     si meses < 0:
-//         meses += 12
-//         años -= 1
-
-//     retornar (años, meses, días)
-
-// # Entrada de usuario
-// fecha_nacimiento = (año_nacimiento, mes_nacimiento, día_nacimiento)
-// fecha_actual = (año_actual, mes_actual, día_actual)
-
-// edad = calcular_edad(fecha_nacimiento, fecha_actual)
-// imprimir "La edad es: ", edad
